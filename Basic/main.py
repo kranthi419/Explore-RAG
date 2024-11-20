@@ -4,13 +4,25 @@
 Author: Kavali Kranthi Kumar
 Source: https://github.com/NirDiamant/RAG_Techniques/blob/main/all_rag_techniques/simple_rag.ipynb
 requirements:
+- langchain-openai
+- python-dotenv
+
+helper functions are used to parse, embed and process the pdf file
 """
 
+import os
 from langchain_openai.chat_models import ChatOpenAI
 from langchain_openai.embeddings import OpenAIEmbeddings
 
+from helper_functions import encode_pdf, show_context
 
-from helper_functions import encode_pdf, text_wrap, show_context
+from dotenv import load_dotenv
+
+# load environment variables from .env file
+load_dotenv()
+
+# set openai api key
+os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
 
 
 class BasicRetriever:

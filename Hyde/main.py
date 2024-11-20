@@ -50,7 +50,6 @@ class HyDeRetriever:
 
 
 if __name__ == "__main__":
-    # init the database
     filepath = "your_sample.pdf"
 
     retriever = HyDeRetriever(filepath)
