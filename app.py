@@ -12,18 +12,22 @@ import streamlit as st
 from Hyde.main import HyDeRetriever
 from Basic.main import BasicRetriever
 
+retrival_techniques_files_path = {"HyDe": "Hyde/main.py", "Basic": "Basic/main.py"}
+
+st.set_page_config(layout="wide")
 
 st.title("RAG retrieval techniques")
 
 selected_technique = st.sidebar.selectbox("Select the retrieval technique", ["HyDe", "Basic"])
+uploaded_file = st.sidebar.file_uploader("Upload a PDF file.", type=["pdf"])
+st.sidebar.caption("Upload the PDF file to see the retrieval results.")
 
-uploaded_file = st.file_uploader("Upload a PDF file.", type=["pdf"])
 if uploaded_file is not None:
     with open(uploaded_file.name, "wb") as f:
         f.write(uploaded_file.getbuffer())
     if selected_technique == "HyDe":
         retriever = HyDeRetriever(uploaded_file.name)
-        query = st.text_input("Enter the query:")
+        query = st.text_input("**Enter the query:**")
         if query:
             similar_docs, hypothetical_doc = retriever.retrieve(query)
             st.markdown("## :green[Hypothetical document:]")
@@ -35,7 +39,7 @@ if uploaded_file is not None:
                 st.write("----")
     elif selected_technique == "Basic":
         retriever = BasicRetriever(uploaded_file.name)
-        query = st.text_input("Enter the query:")
+        query = st.text_input("**Enter the query:**")
         if query:
             similar_docs = retriever.retrieve(query)
             st.markdown("## :green[Retrieved documents:]")
@@ -43,3 +47,9 @@ if uploaded_file is not None:
                 st.write(f"Document {i+1}:")
                 st.write(doc.page_content)
                 st.write("----")
+else:
+    file_path = retrival_techniques_files_path[selected_technique]
+    with open(file_path) as f:
+        code = f.read()
+    st.markdown("## :green[Code snippet:]")
+    st.code(code, language="python")
