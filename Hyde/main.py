@@ -2,11 +2,13 @@
 
 """
 Author: Kavali Kranthi Kumar
-Source: https://github.com/NirDiamant/RAG_Techniques/blob/main/all_rag_techniques/simple_rag.ipynb
+Source: https://github.com/NirDiamant/RAG_Techniques/blob/main/all_rag_techniques/HyDe_Hypothetical_Document_Embedding.ipynb
 requirements:
 - langchain-openai
 - langchain-core
 - python-dotenv
+
+helper functions are used to parse, embed and process the pdf file
 """
 
 import os
@@ -27,12 +29,12 @@ os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
 
 # define the HyDe retriever class - creating vector store, generating hypothetical document, and retrieving
 class HyDeRetriever:
-    def __init__(self, files_path, chunk_size=500, chunk_overlap=100):
+    def __init__(self, file_path, chunk_size=500, chunk_overlap=100):
         self.llm = ChatOpenAI(temperature=0, max_tokens=4000, model_name="gpt-4o-mini")
         self.embeddings = OpenAIEmbeddings()
         self.chunk_size = chunk_size
         self.chunk_overlap = chunk_overlap
-        self.vectorstore = encode_pdf(files_path, chunk_size=self.chunk_size, chunk_overlap=self.chunk_overlap)
+        self.vectorstore = encode_pdf(file_path, chunk_size=self.chunk_size, chunk_overlap=self.chunk_overlap)
         self.hyde_prompt = ChatPromptTemplate.from_messages([("system", """Given the question '{query}', generate a hypothetical document that directly answers this question. The document should be detailed and in-depth.
             The document size has to be exactly {chunk_size} characters.""")])
         self.hyde_chain = self.hyde_prompt | self.llm
@@ -49,9 +51,9 @@ class HyDeRetriever:
 
 if __name__ == "__main__":
     # init the database
-    file_path = "your_sample.pdf"
+    filepath = "your_sample.pdf"
 
-    retriever = HyDeRetriever(file_path)
+    retriever = HyDeRetriever(filepath)
     question = "What is the capital of France?"
     similar_docs_data, hypothetical_docs_data = retriever.retrieve(question)
 
