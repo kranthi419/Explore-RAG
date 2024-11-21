@@ -6,6 +6,7 @@ Author: Kavali Kranthi Kumar
 requirements:
 - streamlit
 """
+import os
 
 import streamlit as st
 
@@ -47,6 +48,7 @@ if uploaded_file is not None:
                 st.write(f"Document {i+1}:")
                 st.write(doc.page_content)
                 st.write("----")
+    os.remove(uploaded_file.name)
 else:
     file_path = retrival_techniques_files_path[selected_technique]
     with open(file_path) as f:
