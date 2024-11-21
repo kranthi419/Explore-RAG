@@ -13,7 +13,6 @@ helper functions are used to parse, embed and process the pdf file
 
 import os
 from langchain_openai.chat_models import ChatOpenAI
-from langchain_openai.embeddings import OpenAIEmbeddings
 from langchain_core.prompts import ChatPromptTemplate
 
 from helper_functions import encode_pdf, text_wrap, show_context
@@ -31,7 +30,6 @@ os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
 class HyDeRetriever:
     def __init__(self, file_path, chunk_size=500, chunk_overlap=100):
         self.llm = ChatOpenAI(temperature=0, max_tokens=4000, model_name="gpt-4o-mini")
-        self.embeddings = OpenAIEmbeddings()
         self.chunk_size = chunk_size
         self.chunk_overlap = chunk_overlap
         self.vectorstore = encode_pdf(file_path, chunk_size=self.chunk_size, chunk_overlap=self.chunk_overlap)
