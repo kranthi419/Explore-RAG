@@ -12,14 +12,15 @@ import streamlit as st
 
 from Hyde.main import HyDeRetriever
 from Basic.main import BasicRetriever
+from RRF.main import RRFRetriever
 
-retrival_techniques_files_path = {"HyDe": "Hyde/main.py", "Basic": "Basic/main.py"}
 
 st.set_page_config(layout="wide")
 
 st.title("RAG retrieval techniques")
 
-selected_technique = st.sidebar.selectbox("Select the retrieval technique", ["HyDe", "Basic"])
+retrival_techniques_files_path = {"HyDe": "Hyde/main.py", "Basic": "Basic/main.py", "RRF": "RRF/main.py"}
+selected_technique = st.sidebar.selectbox("Select the retrieval technique", ["HyDe", "Basic", "RRF"])
 uploaded_file = st.sidebar.file_uploader("Upload a PDF file.", type=["pdf"])
 st.sidebar.caption("Upload the PDF file to see the retrieval results.")
 
@@ -40,6 +41,16 @@ if uploaded_file is not None:
                 st.write("----")
     elif selected_technique == "Basic":
         retriever = BasicRetriever(uploaded_file.name)
+        query = st.text_input("**Enter the query:**")
+        if query:
+            similar_docs = retriever.retrieve(query)
+            st.markdown("## :green[Retrieved documents:]")
+            for i, doc in enumerate(similar_docs):
+                st.write(f"Document {i+1}:")
+                st.write(doc.page_content)
+                st.write("----")
+    elif selected_technique == "RRF":
+        retriever = RRFRetriever(uploaded_file.name)
         query = st.text_input("**Enter the query:**")
         if query:
             similar_docs = retriever.retrieve(query)
