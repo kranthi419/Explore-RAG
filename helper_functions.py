@@ -15,6 +15,8 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings
 from langchain_community.vectorstores import FAISS
 
+from rank_bm25 import BM25Okapi
+
 import textwrap
 
 
@@ -58,6 +60,34 @@ def encode_pdf(path, chunk_size=1000, chunk_overlap=200):
     # create the embeddings and vector store
     embeddings = OpenAIEmbeddings()
     vector_store = FAISS.from_documents(cleaned_texts, embeddings)
+
+    return vector_store
+
+
+def encode_pdf_with_bm25(path, chunk_size=1000, chunk_overlap=200):
+    """
+    Encodes a PDF book into a vector store using BM25 embeddings.
+
+    Args:
+        path: The path to the PDF file.
+        chunk_size: The desired size of each text chunk.
+        chunk_overlap: The amount of overlap between consecutive chunks.
+
+    Returns:
+        A BM25 vector store containing the encoded book content.
+    """
+
+    # load the PDF file
+    loader = PyPDFLoader(path)
+    documents = loader.load()
+
+    # split the document into chunks
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=chunk_size, chunk_overlap=chunk_overlap, length_function=len)
+    texts = text_splitter.split_documents(documents)
+    cleaned_texts = replace_t_with_space(texts)
+
+    # create the embeddings and vector store
+    vector_store = BM25Okapi(cleaned_texts)
 
     return vector_store
 

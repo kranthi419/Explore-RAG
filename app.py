@@ -13,14 +13,15 @@ import streamlit as st
 from Hyde.main import HyDeRetriever
 from Basic.main import BasicRetriever
 from RRF.main import RRFRetriever
+from Fusion.main import FusionRetriever
 
 
 st.set_page_config(layout="wide")
 
 st.title("RAG retrieval techniques")
 
-retrival_techniques_files_path = {"HyDe": "Hyde/main.py", "Basic": "Basic/main.py", "RRF": "RRF/main.py"}
-selected_technique = st.sidebar.selectbox("Select the retrieval technique", ["HyDe", "Basic", "RRF"])
+retrival_techniques_files_path = {"HyDe": "Hyde/main.py", "Basic": "Basic/main.py", "RRF": "RRF/main.py", "Fusion": "Fusion/main.py"}
+selected_technique = st.sidebar.selectbox("Select the retrieval technique", ["HyDe", "Basic", "RRF", "Fusion"])
 uploaded_file = st.sidebar.file_uploader("Upload a PDF file.", type=["pdf"])
 st.sidebar.caption("Upload the PDF file and ask a query to see the results.")
 
@@ -51,6 +52,16 @@ if uploaded_file is not None:
                 st.write("----")
     elif selected_technique == "RRF":
         retriever = RRFRetriever(uploaded_file.name)
+        query = st.text_input("**Enter the query:**")
+        if query:
+            similar_docs = retriever.retrieve(query)
+            st.markdown("## :green[Retrieved documents:]")
+            for i, doc in enumerate(similar_docs):
+                st.write(f"Document {i+1}:")
+                st.write(doc.page_content)
+                st.write("----")
+    elif selected_technique == "Fusion":
+        retriever = FusionRetriever(uploaded_file.name)
         query = st.text_input("**Enter the query:**")
         if query:
             similar_docs = retriever.retrieve(query)
