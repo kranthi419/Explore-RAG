@@ -22,7 +22,7 @@ st.title("RAG retrieval techniques")
 retrival_techniques_files_path = {"HyDe": "Hyde/main.py", "Basic": "Basic/main.py", "RRF": "RRF/main.py"}
 selected_technique = st.sidebar.selectbox("Select the retrieval technique", ["HyDe", "Basic", "RRF"])
 uploaded_file = st.sidebar.file_uploader("Upload a PDF file.", type=["pdf"])
-st.sidebar.caption("Upload the PDF file to see the retrieval results.")
+st.sidebar.caption("Upload the PDF file and ask a query to see the results.")
 
 if uploaded_file is not None:
     with open(uploaded_file.name, "wb") as f:
