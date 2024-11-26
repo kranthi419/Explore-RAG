@@ -1,54 +1,66 @@
 # RAG Retrieval Techniques
 
-This project demonstrates the use of Retrieval-Augmented Generation (RAG) techniques for document retrievals. The project is implemented in Python and uses Streamlit for the web interface.
+This project demonstrates various retrieval techniques for document retrieval using Python. The techniques implemented include HyDe, Basic, Reciprocal Rank Fusion (RRF), and Fusion Retrieval. The project uses Streamlit for the user interface and various libraries for document processing and retrieval.
 
-## Requirements
-
-- `Python 3.11`
-- `langchain-openai`
-- `langchain-core`
-- `python-dotenv`
-- `streamlit`
+## Table of Contents
+- [Installation](#installation)
+- [Usage](#usage)
+- [Retrieval Techniques](#retrieval-techniques)
+  - [HyDe](#hyde)
+  - [Basic](#basic)
+  - [RRF](#rrf)
+  - [Fusion](#fusion)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Installation
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/yourusername/your-repo-name.git
-    cd your-repo-name
+    git clone https://github.com/yourusername/yourrepository.git
+    cd yourrepository
     ```
 
-2. Create a virtual environment and activate it:
-    ```sh
-    python -m venv venv
-    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-    ```
-
-3. Install the required packages:
+2. Install the required dependencies:
     ```sh
     pip install -r requirements.txt
     ```
 
-4. Create a `.env` file in the root directory and add your OpenAI API key:
-    ```env
-    OPENAI_API_KEY=your_openai_api_key
-    ```
-
 ## Usage
 
-1. Run the Streamlit app:
+1. Run the Streamlit application:
     ```sh
     streamlit run app.py
     ```
 
-2. Open your web browser and go to `http://localhost:8501`.
+2. Upload a PDF file using the sidebar.
 
-3. Upload a PDF file and enter your query to retrieve similar documents using the HyDe technique.
+3. Select a retrieval technique from the sidebar.
 
-## Author
+4. Enter a query in the text input box and view the retrieved documents.
 
-Kavali Kranthi Kumar
+## Retrieval Techniques
+
+### HyDe
+
+HyDe (Hypothetical Document) retrieval generates a hypothetical document based on the query and retrieves similar documents.
+
+### Basic
+
+Basic retrieval uses a simple similarity search to retrieve documents based on the query.
+
+### RRF
+
+Reciprocal Rank Fusion (RRF) combines the results of multiple retrieval algorithms to improve the overall retrieval performance.
+
+### Fusion
+
+Fusion retrieval combines vector search and BM25 search results using a weighted sum to retrieve the most relevant documents.
+
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the MIT License. See the `LICENSE` file for more details.
