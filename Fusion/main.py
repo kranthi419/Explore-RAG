@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 Author: Kavali Kranthi Kumar
-
+Source: https://medium.com/thedeephub/rag-v-fusion-retrieval-82301e821424
 requirements:
 - langchain-openai
 - numpy
@@ -36,7 +36,7 @@ class FusionRetriever:
         :param query: query to search
         :param k: number of documents to retrieve
         :param alpha: weight for vector search
-        :return:
+        :return: list of top k documents
         """
         all_docs = faiss_vectorstore.similarity_search(query, k=faiss_vectorstore.index.ntotal)
         similar_docs = faiss_vectorstore.similarity_search_with_score(query, k=len(all_docs))
