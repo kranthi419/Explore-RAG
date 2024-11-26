@@ -38,7 +38,7 @@ class FusionRetriever:
         :param alpha: weight for vector search
         :return: list of top k documents
         """
-        all_docs = faiss_vectorstore.similarity_search(query, k=faiss_vectorstore.index.ntotal)
+        all_docs = faiss_vectorstore.similarity_search("", k=faiss_vectorstore.index.ntotal)
         similar_docs = faiss_vectorstore.similarity_search_with_score(query, k=len(all_docs))
         bm25_scores = bm25_vectorstore.get_scores(query.split())
 

@@ -86,8 +86,9 @@ def encode_pdf_with_bm25(path, chunk_size=1000, chunk_overlap=200):
     texts = text_splitter.split_documents(documents)
     cleaned_texts = replace_t_with_space(texts)
 
-    # create the embeddings and vector store
-    vector_store = BM25Okapi(cleaned_texts)
+    # This is a simple approach and could be improved with more sophisticated tokenization
+    tokenized_docs = [doc.page_content.split() for doc in cleaned_texts]
+    vector_store = BM25Okapi(tokenized_docs)
 
     return vector_store
 
