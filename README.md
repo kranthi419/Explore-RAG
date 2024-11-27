@@ -1,6 +1,6 @@
 # RAG Retrieval Techniques
 
-This project demonstrates various retrieval techniques for document retrieval using Python. The techniques implemented include HyDe, Basic, Reciprocal Rank Fusion (RRF), and Fusion Retrieval. The project uses Streamlit for the user interface and various libraries for document processing and retrieval.
+This project demonstrates various retrieval techniques for document retrieval using Python. The techniques implemented include HyDe, Basic, Reciprocal Rank Fusion (RRF), Fusion Retrieval and Sub Query Decomposition(SQD). The project uses Streamlit for the user interface and various libraries for document processing and retrieval.
 
 ## Table of Contents
 - [Installation](#installation)
