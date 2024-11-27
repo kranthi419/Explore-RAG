@@ -10,6 +10,7 @@ This project demonstrates various retrieval techniques for document retrieval us
   - [Basic](#basic)
   - [RRF](#rrf)
   - [Fusion](#fusion)
+  - [Sub Query Decomposition](#sub-query-decomposition)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -56,6 +57,10 @@ Reciprocal Rank Fusion (RRF) combines the results of multiple retrieval algorith
 ### Fusion
 
 Fusion retrieval combines vector search and BM25 search results using a weighted sum to retrieve the most relevant documents.
+
+### Sub Query Decomposition
+
+Sub Query Decomposition (SQD) is a technique that decomposes the query into sub-queries and retrieves documents based on the sub-queries.
 
 ## Contributing
 
